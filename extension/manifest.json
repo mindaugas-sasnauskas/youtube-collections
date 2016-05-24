@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+
+  "name": "yout-dl1",
+  "description": "To download video",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "scripts": ["jquery.js","app.js"]
+  },
+
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/",
+    "contextMenus"
+  ],
+  "content_scripts": [ {
+    "js": [ "jquery.js","app.js" ],
+    "matches": [ "http://*/*", "https://*/*"]
+  }]
+}

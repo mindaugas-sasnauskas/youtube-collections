@@ -1,0 +1,35 @@
+{
+  "name": "yout-dl2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.9.x",
+    "angular-ui-bootstrap": "0.13.3",
+    "async": "^1.5.2",
+    "cookie-session": "^2.0.0-alpha.1",
+    "gcloud": "^0.28.0",
+    "googleapis": "^2.1.7",
+    "jade": "^1.11.0",
+    "kerberos": "^0.0.18",
+    "lodash": "^4.5.1",
+    "mongodb": "^2.1.7",
+    "mysql": "^2.10.2",
+    "multer": "^1.1.0",
+    "prompt": "^1.0.0",
+    "angular": "1.4.3",
+    "bootstrap": "3.3.5",
+    "ws": "0.8.0",
+    "ytdl-core": "0.5.1",
+    "body-parser": "1.15.0",
+    "chokidar": "1.0.5",
+    "grunt": "~0.4.1",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-watch": "~0.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qazedx",
+  "license": "ISC"
+}

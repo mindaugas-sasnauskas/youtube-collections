@@ -1,0 +1,133 @@
+.glyphicon.glyphicon-th-large:before, .glyphicon.glyphicon-th-list:before {
+  background-color: #fff;
+  font-size: 16px;
+}
+body{
+  background: #414141;
+      color: #E5E5E5;
+}
+.vhidden {
+  visibility: hidden!important;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.video-list .video-list-item video {
+  display: none;
+}
+.video-list .video-list-item.viewVid-single video, .video-list.list-large .video-list-item video {
+  width: 100%;
+  display: block;
+}
+.video-list.list-list .video-list-item video {
+  max-width: 100px;
+  display: inline-block;
+}
+.panel-body {
+  padding: 0;
+}
+.add2list {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.add2list input {
+  width: 115px;
+  display: inline-block;
+}
+.add2list button {
+  width: 50px;
+  display: inline-block;
+}
+.subscriptionslist .panel-heading {
+  padding: 0;
+}
+.subscriptionslist .panel-title a {
+  width: 100%;
+  display: block;
+  outline: none;
+}
+.subscriptionslist .panel-title a div.click-wrapper{
+  padding: 10px 15px;
+}
+video .description.expanded {
+  max-height: auto;
+}
+.video .description + label {
+  margin-top: -15px;
+  background: -webkit-linear-gradient(top, rgb(180, 180, 180) -12%, rgb(90, 90, 90) 100%);
+  border: none;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: large;
+  padding-top: 15px;
+}
+.video h4{
+  padding: 10px;
+}
+.video .description {
+  position: relative;
+  overflow: hidden;
+  display: block;
+      padding: 10px;
+  max-height: 150px;
+}
+.video .description {
+  animation: fade_animation 0.3s linear;
+  -webkit-animation: fade_animation 0.3s linear;
+}
+.video .description.expanded {
+  animation: fade_in_animation 0.3s linear;
+  -webkit-animation: fade_in_animation 0.3s linear;
+  max-height: 700px;
+}
+.collections-wrapper h4{
+  text-transform: capitalize;
+}
+.collections-wrapper h4+.controls{
+  top: -5px;
+  position: relative;
+  margin-top: -30px;
+}
+.collections-wrapper h4+.controls button.glyphicon-refresh{
+  margin-top: -1px;
+}
+.mypalylists uib-accordion h4 a,
+.collections-wrapper uib-accordion h4 a {
+  padding: 10px;
+}
+.panel-body {
+  background: #5A5A5A;
+color: antiquewhite;
+}
+.alert-controller-wrapper{
+  position: fixed;
+  top: 0;
+      z-index: 1;
+}
+.panel-default>.panel-heading {
+          background-color: #B8B8B8;
+          color: #272727
+}
+@keyframes fade_animation {
+  from {
+    max-height: 700px;
+  }
+  to {
+    max-height: 150px;
+  }
+}
+@keyframes fade_in_animation {
+  from {
+    max-height: 150px;
+  }
+  to {
+    max-height: 700px;
+  }
+}

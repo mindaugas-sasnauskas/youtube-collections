@@ -1,0 +1,48 @@
+<div class='col-sm-12'>
+  <div class='form-inline text-center' ng-switch='required'>
+    <input id="idl-input" class='form-control' name="name" ng-model="searchVid.$" placeholder="search" />
+    <button class='form-control' type="submit" name="button" ng-click="searchVid()" id="download">Search</button>
+  </div>
+  <br/>
+  <button class='form-control' type="button" name="button" ng-click="refreshList()">refreshList</button>
+  <div>
+    <span class=""></span>
+    <div class="form-group noselect">
+      <label for="listStyle-large" ng-class="{'text-primary':listStyle.large}" class="glyphicon glyphicon-th-large ">
+        <input id="listStyle-large" ng-model="listStyle.large" class="vhidden" type="checkbox">
+      </label>
+      <label for="listStyle-list" ng-class="{'text-primary':listStyle.list}" class="glyphicon glyphicon-th-list">
+        <input id="listStyle-list" ng-model="listStyle.list" class="vhidden" type="checkbox">
+      </label>
+    </div>
+  </div>
+  <div class="video-list" ng-class="{'list-large':listStyle.large, 'list-list':listStyle.list}">
+    <div class="">
+      <div class="video-list-item panel panel-default" id="{{ video.video_id }}"
+      ng-repeat="video in videos | filter:searchVid:strict | orderBy:predicate:reverse">
+        <div class="panel-heading" ng-click="viewVid(video.video_id)">
+          <h5 class="btn-block text-left">
+            {{ video.video_author }}
+          </h5>
+          <h4 class="btn-block text-left">
+            {{ video.video_title }}
+          </h4>
+          <span class="hidden">{{video.video_timestamp*1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+          <span class="hidden">{{video.video_timestamp }}</span>
+        </div>
+        <div class="panel-body">
+          <!-- <video ng-src="{{video.path}}" controls></video> -->
+        </div>
+        <div class="panel-footer">
+          <form class="form-inline text-left" action="index.html" method="post">
+            <button id="deleteVid-btn" class="glyphicon glyphicon-remove btn " type="button" name="button" ng-click="deleteVid(video.video_id)"></button>
+            <button id="addVid-btn" class="addVid-btn glyphicon glyphicon-ok btn btn-default pull-right" type="button" name="button" ng-click="addVid(video.video_id, video.video_path)"></button>
+            <button id="viewVid-btn" class="viewVid-btn glyphicon glyphicon-unchecked btn btn-default pull-right" type="button" name="button" ng-click="viewVid(video.video_id)"></button>
+            <input id="listStyle-large" ng-model="listStyle.large" class="vhidden" type="checkbox">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+</div>

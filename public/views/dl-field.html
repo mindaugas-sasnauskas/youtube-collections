@@ -1,0 +1,9 @@
+<form class="">
+  <div class='form-group'>
+    <div class='form-inline text-center' ng-switch='required'>
+      <input id="idl-input" class='form-control' ng-model="vid.url" required placeholder="url"/>
+      <button class='form-control' type="submit" name="button" ng-click="downloadVid()" id="download">download</button>
+      <img class="btn-block" ng-show="scope.loadingVideo" src="img/loading_spinner.gif" alt="" />
+    </div>
+  </div>
+</form>

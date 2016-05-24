@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app='youtApp'>
+
+<head>
+  <title> main </title>
+  <base href='/'>
+  <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/style.css' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div ng-controller="AlertController" >
+
+  </div>
+  <div class='container'>
+    <a class="btn btn-default pull-right" href="/oauth2/logout">logout</a><span class="clearfix"></span>
+    <div>
+      <div id="login-container" class="pre-auth">
+        This application requires access to your YouTube account. Please <a href="#" id="login-link">authorize</a> to continue.
+      </div>
+      <div class="" ng-hide="true">
+        <div id="video-container" style="height:100px"></div>
+        <div class="button-container">
+          <button id="prev-button" class="paging-button" onclick="previousPage();">Previous Page</button>
+          <button id="next-button" class="paging-button" onclick="nextPage();">Next Page</button>
+        </div>
+      </div>
+
+      <div class="subscriptions-container"></div>
+      <div class="subscriptions-container2"></div>
+    </div>
+    <!-- subscriptions -->
+    <div ng-controller="subscriptionsController">
+      <uib-alert class="alert-controller-wrapper" dismiss-on-timeout="5000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+      <div collections></div>
+      <div liveplaylist></div>
+      <hr>
+      <div myplaylists></div>
+      <hr>
+      <div subscriptionslist></div>
+    </div>
+    <!-- subscriptions -->
+
+    <!-- search -->
+    <div ng-controller="searchController">
+      <div search></div>
+      <div searchlist></div>
+    </div>
+    <!-- search -->
+
+  </div>
+<footer>beta app, for more info: qazedxms@gmail.com</footer>
+
+
+  <script src='lib/jquery/dist/jquery.min.js'></script>
+  <script src='lib/bootstrap/dist/js/bootstrap.min.js'></script>
+  <script src='lib/angular/angular.min.js'></script>
+  <script src='lib/angular-route/angular-route.min.js'></script>
+  <script src='lib/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
+  <script src='lib/angular-animate/angular-animate.min.js'></script>
+
+
+ <script src="js/auth.js"></script>
+
+
+  <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+
+  <script src='src/app.js'></script>
+  <script src='src/factories.js'></script>
+  <script src='src/controllers.js'></script>
+  <script src='src/directives.js'></script>
+</body>
+
+</html>

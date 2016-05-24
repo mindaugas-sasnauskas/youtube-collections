@@ -1,0 +1,16 @@
+{
+  "name": "yout-dl2",
+  "version": "1.0.0",
+  "homepage": "",
+  "authors": [],
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "angular": "1.5",
+    "angular-google-gapi": "~v1.0.0-beta.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-animate": "1.5",
+    "angular-bootstrap": "1.2.4"
+
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "yout-dl1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.9.x",
+    "angular-ui-bootstrap": "0.13.3",
+    "angular": "1.4.3",
+    "bootstrap": "3.3.5",
+    "ws": "0.8.0",
+    "ytdl-core": "0.5.1",
+    "chokidar":"1.0.5"
+
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qazedx",
+  "license": "ISC"
+}

@@ -1,0 +1,63 @@
+<div class="form-group">
+  <button type="button" class="btn btn-default pull-right" ng-click="getSubscriptions()" name="button">
+    Refresh subscriptions list
+  </button><div class="clearfix"></div>
+  <input class="form-control" type="search" ng-model="q" placeholder="Filter subscriptions" />
+  <div class="clearfix"></div>
+</div>
+<div  class="row">
+  <!-- {{item.snippet.title}} -->
+  <uib-accordion close-others="oneAtATime" class="subscriptionslist  col-sm-6 col-xs-12" ng-repeat="item in subscriptionsResult| filter:q as results">
+    <uib-accordion-group  >
+
+      <uib-accordion-heading>
+        <div class="click-wrapper" ng-click="collection('get-uploads', item.title,item.channelId)">
+          {{item.title}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+
+        </div>
+      </uib-accordion-heading>
+      <div class="form-group">
+
+      </div>
+      <div class="form-group">
+        <div class="col-xs-6">
+          <form class="form-inline">
+            <div class="form-group">
+              <select class="form-control" name="collection" ng-model="collectionModel.collection">
+                <option value="{{item.id}}" ng-repeat="item in collectionsResult">add to: {{item.title}}</option>
+              </select>
+              <button class="btn btn-default" ng-click="collection('add', item.title, item.channelId, collectionModel.collection)" type="button" name="button"> add</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-6">
+          <button class="btn btn-block btn-default" type="button" name="button" ng-click="collection('get-uploads', item.title, item.channelId)"> Get uploads</button>
+        </div>
+
+      </div>
+      <div class="clearfix"></div>
+      <div class="playlist">
+
+        <div class="video" ng-repeat="videoItem in item.uploads.items">
+          <h4 class="btn-block">  {{videoItem.snippet.title}}</h4>
+          <a href="https://www.youtube.com/watch?v={{videoItem.contentDetails.videoId}}&list={{item.uploads.items[0].snippet.playlistId}}" target="_blank">
+            <img class="img-responsive" ng-src="{{videoItem.snippet.thumbnails.high.url}}" alt="" /></a>
+          <div class="description" ng-class="{expanded: showDescription == true, '': showDescription == false}">
+            <p>
+              {{videoItem.snippet.description}}
+            </p>
+          </div>
+          <label class="btn btn-block">show description
+            <input ng-hide="true" type="checkbox" name="name" value="" ng-model="showDescription">
+          </label>
+        </div>
+        <hr>
+      </div>
+
+
+      <div>{{item.snippet.description}}</div>
+      <button type="button" name="button" class="btn btn-default btn-block" ng-click="collection('get-more-uploads', item.title, item.channelId)">Load more</button>
+    </uib-accordion-group>
+
+  </uib-accordion>
+</div>
