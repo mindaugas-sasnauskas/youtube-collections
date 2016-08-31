@@ -21,7 +21,7 @@ angular.module('youtApp', [])
         maxResults: 10
           // type:'channel'
       });
-      request.execute(function (response) {
+      request.execute(function(response) {
 
         console.log(response.result);
         var channelTitle = JSON.stringify(response.result.items[0].snippet.title);
@@ -33,7 +33,7 @@ angular.module('youtApp', [])
       return response.result;
     }
 
-    Provider.search = function () {
+    Provider.search = function() {
       Query()
     }
-  });
+  })

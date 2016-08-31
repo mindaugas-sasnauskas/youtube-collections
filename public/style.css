@@ -95,8 +95,12 @@ video .description.expanded {
   position: relative;
   margin-top: -30px;
 }
-.collections-wrapper h4+.controls button.glyphicon-refresh{
+.collections-wrapper h4+.controls button.glyphicon{
   margin-top: -1px;
+}
+.form-inline select.form-control{
+  max-width: 50%;
+  display: inline-block;
 }
 .mypalylists uib-accordion h4 a,
 .collections-wrapper uib-accordion h4 a {

@@ -34,6 +34,8 @@
     <div class="controls">
       <button type="button" name="button" ng-click="refreshUploadsCollection(collectionsResultItem.title)" class="btn btn-default glyphicon glyphicon-refresh pull-right"></button>
       <button type="button" name="button" ng-click="makePlaylist(collectionsResultItem.title)" class="btn btn-default  pull-right">Playlist</button>
+      <button type="button" name="button" ng-click="makePlaylistCron(collectionsResultItem.title, 'tab')" class="btn btn-default glyphicon glyphicon-share  pull-right"></button>
+      <button type="button" name="button" ng-click="makePlaylistCron(collectionsResultItem.title)" class="btn btn-default  pull-right">Cronological Playlist</button>
 
     </div>
     <div class="clearfix"></div>
@@ -43,7 +45,13 @@
           {{item.title}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
         <a ng-href="https://www.youtube.com/watch?v={{item.uploads.items[0].snippet.resourceId.videoId}}&list={{item.uploadsId}}" target="_blank" class="btn btn-block btn-default">Uploads</a>
-        <button type="button" name="button" ng-click="collection('remove', item.title, item.channelId, collectionsResultItem.id)" class="btn btn-default pull-right">Remove</button>
+        <br>
+        <div class="col-xs-6">
+          <div add2collection></div>
+        </div>
+        <div class="col-xs-6">
+          <div removefromcollection></div>
+        </div>
         <div class="clearfix"></div>
         <div class="playlist">
 
@@ -69,5 +77,6 @@
       </uib-accordion-group>
 
     </uib-accordion>
+
   </div>
 </div>

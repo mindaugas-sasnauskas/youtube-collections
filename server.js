@@ -24,7 +24,7 @@ var oauth2 = require('./lib/oauth2')(config.oauth2);
 app.use(oauth2.router);
 
 
-app
+app 
   .use(express.static('./public'))
   .get('/data', function (req, res) {
     data = readFileSync('data.json')
@@ -32,13 +32,9 @@ app
   })
   .get('/', function (req, res) {
     if (req.session.profile) {
-
-      if (req.session.profile.id ==config.cust.userId || req.session.profile.id ==config.cust.quser) {
-
         res.sendFile('public/main.html', {
           "root": "."
-        })
-      }
+        })    
     }else {
       res.sendFile('public/login.html', {
         "root": "."
