@@ -31,6 +31,9 @@ body{
 .panel-body {
   padding: 0;
 }
+.search-wrapper input{
+  color: #333
+}
 .add2list {
   position: fixed;
   bottom: 0;
@@ -133,5 +136,12 @@ color: antiquewhite;
   }
   to {
     max-height: 700px;
+  }
+}
+
+@media(min-width:1930px){
+  .main-wrapper .container{
+    float: right;
+    max-width: 1000px;
   }
 }

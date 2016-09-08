@@ -1,9 +1,10 @@
 <div id="buttons">
-  <label>
-    <form ng-submit="Search()" s>
-      <input id="query" ng-model="searchModel" ng-keyup="Search('searchModel')" type="text"  value="a"/>
-      <input type="submit" id="submit" value="Search" />
+  
+    <form ng-submit="Search()"  class="form-inline">
+      <input class="form-control" id="query" ng-model="searchModel" ng-keyup="Search('searchModel')" type="text"  value="a"/>
+      <input class="btn btn default pull-right" type="submit" id="submit" value="Search" />
+      <div class="clearfix"></div>
       <!-- <button id="search-button"  ng-click="Search()">Search</button> -->
     </form>
-  </label>
+  
 </div>

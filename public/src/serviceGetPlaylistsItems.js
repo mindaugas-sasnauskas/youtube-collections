@@ -77,26 +77,28 @@ angular.module('youtApp')
 
         }
         this.playlistItemsMyplaylists = function(subscriptionsResult) {
-            for (var i = 0; i < subscriptionsResult.myplaylists.items.length; i++) {
-                var uploadsId = subscriptionsResult.myplaylists.items[i].id;
+            if(subscriptionsResult.myplaylists!=undefined){
+                for (var i = 0; i < subscriptionsResult.myplaylists.items.length; i++) {
+                    var uploadsId = subscriptionsResult.myplaylists.items[i].id;
 
-                googleService.googleApiClientReady(
-                    "PlaylistItems",
-                    uploadsId
-                ).then(function(data) {
+                    googleService.googleApiClientReady(
+                        "PlaylistItems",
+                        uploadsId
+                    ).then(function(data) {
 
-                        for (var i = 0; i < subscriptionsResult.myplaylists.items.length; i++) {
-                            if (subscriptionsResult.myplaylists.items[i].id == data.items[0].snippet.playlistId) {
-                                subscriptionsResult.myplaylists.items[i].uploads = data;
-                                return;
+                            for (var i = 0; i < subscriptionsResult.myplaylists.items.length; i++) {
+                                if (subscriptionsResult.myplaylists.items[i].id == data.items[0].snippet.playlistId) {
+                                    subscriptionsResult.myplaylists.items[i].uploads = data;
+                                    return;
 
+                                }
                             }
-                        }
-                    },
-                    function(error) {
-                        console.log('Failed: ' + error)
-                    });
+                        },
+                        function(error) {
+                            console.log('Failed: ' + error)
+                        });
 
+                }
             }
         }
         this.playlistItemsGetMoreUploads = function(collectionsResult, arg1, arg2) {

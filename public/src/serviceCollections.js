@@ -1,5 +1,5 @@
  angular.module('youtApp')
-     .service('serviceCollections', ['$http', '$q', function($http, $q) {
+     .service('serviceCollections', ['$http', '$q','serviceAlerts', function($http, $q,serviceAlerts) {
 
 
          this.collectionAdd = function(type, title, channelId, collection) {
@@ -11,17 +11,16 @@
                  channelId: "UC" + channelId,
                  uploadsId: "UU" + channelId
              }
-             console.log(data);
              var config = "";
 
              $http.put('/api/' + collection, JSON.stringify(data)).then(
                  function(response) {
                      console.log("successful post");
-                     //   $scope.alerts.push({type: 'success',msg: 'Successfuly added to collection'});
+                     serviceAlerts.alertAdd('Successfuly added to collection','success');
                  },
                  function() {
                      console.log("error post");
-                     //   $scope.alerts.push({type: 'danger',msg: 'Could not add to collection'});
+                      serviceAlerts.alertAdd( 'Could not add to collection','danger');
                  });
          }
          this.collectionRemove = function(type, title, channelId, collection) {
@@ -38,9 +37,11 @@
              $http.put('/api/' + collection, JSON.stringify(data)).then(
                  function(response) {
                      console.log("successful post");
+                     serviceAlerts.alertAdd("Item removed", 'success')
                  },
                  function() {
                      console.log("error post");
+                     serviceAlerts.alertAdd("Item failed to be removed", 'warning')
                  });
          }
          this.newCollection = function(collectionName) {
@@ -51,9 +52,11 @@
              $http.post('/api/yout', JSON.stringify(data)).then(
                  function(response) {
                      console.log("successful post");
+                     serviceAlerts.alertAdd("Collection added", 'success')
                  },
                  function() {
                      console.log("error post");
+                     serviceAlerts.alertAdd("Collection failed to be added", 'warning')
                  });
          }
          this.removeCollection = function(collectionName) {
@@ -63,10 +66,12 @@
              $http.delete('/api/' + collectionName).then(
                  function(response) {
                      console.log("successful post");
+                     serviceAlerts.alertAdd("Item removed", 'success')
 
                  },
                  function() {
                      console.log("error post");
+                     serviceAlerts.alertAdd("Item failed to be removed", 'warning')
                  });
          }
          this.getCollections = function(collectionsResult) {

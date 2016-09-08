@@ -57,6 +57,7 @@
 
           <div class="video" ng-repeat="videoItem in item.uploads.items">
             <h4 class="btn-block">{{videoItem.snippet.title}}</h4>
+            <button class="btn btn-default" ng-click="previewVideo(videoItem.contentDetails.videoId,item.channelId)">Preview</button>
             <a href="https://www.youtube.com/watch?v={{videoItem.contentDetails.videoId}}&list={{item.uploads.items[0].snippet.playlistId}}" target="_blank">
               <img class="img-responsive" ng-src="{{videoItem.snippet.thumbnails.high.url}}" alt="" /></a>
             <div class="description" ng-class="{expanded: showDescription == true, '': showDescription == false}">

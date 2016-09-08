@@ -3,7 +3,7 @@ angular.module('youtApp')
     .controller('subscriptionsController', subscriptionsController)
     .controller('AlertController', AlertController)
 
-function searchController($rootScope, $scope, googleService) {
+function searchController($rootScope, $scope, googleService,$sce) {
     $scope.searchResults = {
         "items": {
             "1": "s",
@@ -17,16 +17,21 @@ function searchController($rootScope, $scope, googleService) {
 
         googleService.googleApiClientReady("search", q).then(function(data) {
             $scope.searchResults = data;
+            $scope.iframeListSearchVid = []
+            for (var i = 0; data.items.length>i; i++){
+                if(data.items[i].id.kind == 'youtube#video'){
+                    var it = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + data.items[i].id.videoId.toString());
+                    $scope.iframeListSearchVid.push(it)
+                }
+            }
         }, function(error) {
             console.log('Failed: ' + error)
         });
     }
-
+$scope.iframeList = $sce.trustAsResourceUrl('https://www.youtube.com/embed/');
 }
 
-function AlertController($scope) {
-
-};
+function AlertController($scope, serviceAlerts) {};
 
 function subscriptionsController(
     $window,
@@ -34,28 +39,19 @@ function subscriptionsController(
     $scope,
     $http,
     $sce,
+    serviceAlerts,
     googleService,
     getPlaylistsItemsService,
-    serviceCollections) {
+    serviceCollections,
+    serviceIframe) {
 
-    $scope.alerts = [];
-    $scope.addAlert = function() {
-        $scope.alerts.push({
-            type: 'success',
-            msg: 'Another alert!'
-        });
-    };
 
-    $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
-    };
     $scope.oneAtATime = true;
 
     $window.initGapi = function() {
         $scope.$apply($scope.getChannel);
 
     };
-
     // init functions
     setTimeout(function() {
             getCollections();
@@ -66,7 +62,10 @@ function subscriptionsController(
         // init functions End
     $scope.nextPageToken = "";
     $scope.subscriptionsResult = [];
-
+    // $scope.iframeVideoItem = "";
+    $scope.previewVideo = function(videoId, channelId){
+        serviceIframe.previewVideo($scope.subscriptionsResult, videoId, channelId)
+    }
     function getSubscriptions() {
         if ($scope.subscriptionsResult == undefined) {
             $scope.subscriptionsResult = [];
@@ -87,7 +86,6 @@ function subscriptionsController(
                         type: "subsctiptions",
                         list: $scope.subscriptionsResult
                     }
-                    console.log(data);
                     var config = "";
 
                     $http.post('/api/yout', angular.toJson(data)).then(
@@ -110,9 +108,6 @@ function subscriptionsController(
 
     }
 
-    function getPlaylistsItems(type, arg1, arg2) {
-        console.log("getPlaylistsItems getPlaylistsItems")
-    }
 
     function getChannelPlaylists(type) {
         if (type == "mine") {
@@ -152,12 +147,10 @@ function subscriptionsController(
     function getCollections() {
         $http.get('/api/userItems').then(
             function(response) {
-                console.log(response);
                 $scope.collectionsResult = [];
                 for (var i = 0; i < response.data.items.length; i++) {
                     if (response.data.items[i].type == "collection") {
                         $scope.collectionsResult.push(response.data.items[i]);
-                        console.log($scope.collectionsResult + " " + i)
                     }
                 }
 
@@ -173,8 +166,8 @@ function subscriptionsController(
     }
 
     function init_uploads() {
-        for (var x = 0; $scope.collectionsResult.length; x++) {
-            console.log($scope.collectionsResult[x] + " " + x)
+
+        for (var x = 0; $scope.collectionsResult.length>x; x++) {
             $scope.collectionsResult[x].uploads = [];
 
         }
@@ -185,7 +178,6 @@ function subscriptionsController(
             function(response) {
                 for (var i = 0; i < response.data.items.length; i++) {
                     if (response.data.items[i].type == "subsctiptions") {
-                        console.log(response.data.items[i]);
                         $scope.subscriptionsResult = response.data.items[i].list;
                     }
                 }
@@ -242,73 +234,15 @@ function subscriptionsController(
     }
 
 
-    $scope.iframeListSet = false;
     $scope.makePlaylist = function(collection) {
-        getPlaylistsItemsService.playlistItemsGetMoreUploads($scope.collectionsResult, collection)
-            // setTimeout(function () {
-            //   makePlaylist(collection)
-            // }, 2000);
-        $scope.makePlaylistCollection = collection;
-        $scope.iframeListSet = true;
+        serviceIframe.makePlaylist($scope.collectionsResult, collection)
     }
-    $scope.makePlaylistCron = function(collection, type) {
-        console.log($scope.collectionsResult)
-
-        var collectionfiltered = $scope.collectionsResult.filter(function(obj) {
-            return obj.title == collection;
-        });
-        collectionfiltered[0].uploads.sort(function(a, b) {
-            return new Date(b.publishedAt) - new Date(a.publishedAt);
-        });
-        $scope.iframeListCron = [];
-        var firstVideoCron;
-        for (var i = 0; i < collectionfiltered[0].uploads.length; i++) {
-
-            if (i == 0) {
-                firstVideoCron = collectionfiltered[0].uploads[i].videoId;
-            }
-            else {
-                $scope.iframeListCron.push(collectionfiltered[0].uploads[i].videoId);
-
-            }
-            console.log($scope.iframeListCron)
-
-        }
-        var length = $scope.iframeList.length;
-        if (type == "tab") {
-            $window.open("https://www.youtube.com/v/" + firstVideoCron.toString() + "?enablejsapi=1&loop=1&playlist=" + $scope.iframeListCron.toString(), '_blank');
-        }
-        else {
-            $scope.iframeListCron = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + firstVideoCron.toString() + "?enablejsapi=1&loop=1&playlist=" + $scope.iframeListCron.toString());
-
-            $scope.iframeListSetCron = true;
-        }
+    $scope.makePlaylistCron = function makePlaylistCronFn(collection, type) {
+       serviceIframe.makePlaylistCron($scope.collectionsResult, collection,type)
     }
 
 
     $scope.iframeList = $sce.trustAsResourceUrl('https://www.youtube.com/embed/');
-
-    function makePlaylist(collection) {
-        $scope.iframeList = [];
-        var firstVideo;
-
-        var collectionfiltered = $scope.collectionsResult.filter(function(obj) {
-            return obj.title == collection;
-        });
-        for (var i = 0; i < collectionfiltered[0].items.length; i++) {
-            var items = collectionfiltered[0].items[i].uploads.items;
-            for (var j = 0; j < items.length; j++) {
-                if (i == 0) {
-                    firstVideo = items[j].snippet.resourceId.videoId;
-                }
-                $scope.iframeList.push(items[j].snippet.resourceId.videoId);
-            }
-        }
-        var length = $scope.iframeList.length;
-        $scope.iframeList = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + firstVideo.toString() + "?enablejsapi=1&loop=1&playlist=" + $scope.iframeList.toString());
-
-
-    }
 
     function getChannels() {
         var data = {};

@@ -5,14 +5,16 @@
   <title> main </title>
   <base href='/'>
   <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='lib/resizable/angular-resizable.min.css' />
   <link rel='stylesheet' href='/style.css' />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
   <div ng-controller="AlertController">
-
+    <uib-alert class="alert-controller-wrapper" dismiss-on-timeout="5000" ng-repeat="alert in alerts  track by $index" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
   </div>
+  <div class="main-wrapper">
   <div class='container'>
     <a class="btn btn-default pull-right" href="/oauth2/logout">logout</a><span class="clearfix"></span>
     <div>
@@ -32,23 +34,26 @@
     </div>
     <!-- subscriptions -->
     <div ng-controller="subscriptionsController">
-      <uib-alert class="alert-controller-wrapper" dismiss-on-timeout="5000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-      <div collections></div>
       <div liveplaylist></div>
+      <div collections></div>
+
       <hr>
       <div myplaylists></div>
       <hr>
-      <div subscriptionslist></div>
-    </div>
-    <!-- subscriptions -->
-
-    <!-- search -->
-    <div ng-controller="searchController">
+      <!-- search -->
+    <div class="search-wrapper" ng-controller="searchController">
       <div search></div>
       <div searchlist></div>
     </div>
     <!-- search -->
+    <hr>
+      <div subscriptionslist></div>
+    </div>
+    <!-- subscriptions -->
 
+
+
+  </div>
   </div>
   <footer>beta app, for more info: qazedxms@gmail.com</footer>
 
@@ -59,6 +64,7 @@
   <script src='lib/angular-route/angular-route.min.js'></script>
   <script src='lib/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
   <script src='lib/angular-animate/angular-animate.min.js'></script>
+  <script src='lib/resizable/angular-resizable.min.js'></script>
 
 
   <script src="js/auth.js"></script>
@@ -71,6 +77,8 @@
   <script src='src/serviceGoogle.js'></script>
   <script src='src/serviceGetPlaylistsItems.js'></script>
   <script src='src/serviceCollections.js'></script>
+  <script src='src/serviceAlerts.js'></script>
+  <script src='src/serviceIframe.js'></script>
   <script src='src/controllers.js'></script>
   <script src='src/directives.js'></script>
   <!--<script src='src/providers.js'></script>-->
